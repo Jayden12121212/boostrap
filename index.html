@@ -23,11 +23,11 @@
           <div class="modal-dialog">
                <div class="modal-content">
                     <div class="modal-header">
-                         <h5 class="modal-title" id="exampleModalLabel">Do you want to Continue?</h5>
+                         <h5 class="modal-title" id="moduletitle">Do you want to Continue?</h5>
                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                         <p>You will be redirected to another website.</p>
+                         <p id="moduleds">You will be redirected to another website.</p>
                     </div>
                     <div class="modal-footer">
                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -170,6 +170,7 @@
           }).catch((error) => { // Handle Errors here.
                const errorCode = error.code;
                const errorMessage = error.message;
+               alert(error.message);
                // The email of the user's account used.
                const email = error.customData.email;
                // The AuthCredential type that was used.
@@ -181,14 +182,23 @@
      auth.onAuthStateChanged(user => {
           if (user) {
                // user is signed in
+               const displayName = user.displayName; 
+               const moduletitle = document.getElementById('moduletitle');
+               const moduleds = document.getElementById('moduleds');
+               const logoutButton = document.getElementById('logoutButton');
+               const loginSubmit = document.getElementById('loginSubmit');
                const openSigninPopup = document.getElementById('openSigninPopup');
-               const openSigninAccountPopup = document.getElementById('openSigninAccountPopup');
-               openSigninPopup.style.display = 'none';
-               openSigninAccountPopup.style.display = 'none';
+               loginSubmit.style.display = 'none';
+               logoutButton.style.display = '';
+               moduleds.innerHTML = displayName;
+               openSigninPopup.innerHTML = 'Open Module';
+               moduletitle.innerHTML = 'Details (Username)'
           } else {
                // no user is signed in
+               const loginSubmit = document.getElementById('loginSubmit');
                const logoutButton = document.getElementById('logoutButton');
                logoutButton.style.display = 'none';
+               loginSubmit.style.display = '';
           }
      })
 
